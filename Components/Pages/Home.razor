@@ -1,0 +1,46 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, World!</h1>
+
+<p>
+    Ported from the helloworld project: same Blazor pages, layout and styles. The only addition
+    is a sign-in link that hands off to <strong>Cluster.Identity</strong>, which owns all of the
+    authentication and issues a cookie this app can read through a shared data protection key ring.
+</p>
+
+<AuthorizeView>
+    <Authorized>
+        <p class="text-success">Signed in as <strong>@context.User.Identity?.Name</strong>.</p>
+        <form method="post" action="/account/logout">
+            <AntiforgeryToken />
+            <button type="submit" class="btn btn-outline-secondary">Log out</button>
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <p class="text-secondary">You are not signed in.</p>
+        <a class="btn btn-primary" href="@LoginUrl()">Log in</a>
+        <a class="btn btn-secondary" href="@RegisterUrl()">Register</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [Inject]
+    private IOptions<IdentityClientOptions> IdentityClient { get; set; } = default!;
+
+    [Inject]
+    private NavigationManager Navigation { get; set; } = default!;
+
+    private string LoginUrl() => BuildUrl("/identity/login");
+
+    private string RegisterUrl() => BuildUrl("/identity/register");
+
+    private string BuildUrl(string path)
+    {
+        var identityBase = IdentityClient.Value.BaseUrl.TrimEnd('/');
+        var returnUrl = Uri.EscapeDataString(IdentityClient.Value.ViewBaseUrl.TrimEnd('/') + "/");
+
+        return $"{identityBase}{path}?returnUrl={returnUrl}";
+    }
+}
