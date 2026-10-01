@@ -1,0 +1,11 @@
+bin/
+obj/
+.keys/
+*.db
+*.db-shm
+*.db-wal
+*.user
+.vs/
+.vscode/
+.idea/
+.DS_Store
