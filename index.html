@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Cluster – on-site data for property compliance</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:inherit}
+a:hover{text-decoration:underline}
+</style>
+</helmet>
+<div style="width: 100%; box-sizing: border-box; background: #F3F1EB; color: #121816; font-family: 'Instrument Sans', system-ui, sans-serif; line-height: 1.5">
+
+<header style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; max-width: 1200px; margin: 0 auto; padding: 24px 32px; box-sizing: border-box">
+<a href="#top" style="display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 22px; letter-spacing: -0.02em; text-decoration: none">
+<svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="9" cy="10" r="5" fill="#121816"></circle><circle cx="19" cy="10" r="5" fill="#121816"></circle><circle cx="14" cy="19" r="5" fill="{{accent}}"></circle></svg>
+Cluster
+</a>
+<nav style="display: flex; align-items: center; flex-wrap: wrap; gap: 24px; font-size: 15px; font-weight: 500">
+<a href="#flow" style="text-decoration: none">How it works</a>
+<a href="#device" style="text-decoration: none">The device</a>
+<a href="#signin" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border: 1px solid #121816; border-radius: 8px; text-decoration: none">Sign in</a>
+</nav>
+</header>
+
+<section id="top" style="max-width: 1200px; margin: 0 auto; padding: 56px 32px 88px; box-sizing: border-box; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 56px; align-items: center">
+<div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #4A524E"><span style="color: {{accent}}">&#9679;</span> On-site data for property compliance</div>
+<h1 style="margin: 20px 0 20px; font-size: clamp(40px, 5.4vw, 68px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 700">Every building, reporting for itself.</h1>
+<p style="margin: 0 0 32px; font-size: 19px; max-width: 520px; color: #2E3632">Cluster nano is a small STM32 node running FreeRTOS. It logs visitors, readings and plant status on site, then streams them straight into your maintenance and compliance records.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#start" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; background: #121816; color: #F3F1EB; border-radius: 8px; font-weight: 600; text-decoration: none">Get started</a>
+<a href="#flow" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border: 1px solid #121816; border-radius: 8px; font-weight: 600; text-decoration: none">See how it works</a>
+</div>
+</div>
+
+<div style="background: #121816; color: #E8E6DF; border-radius: 16px; padding: 24px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; box-sizing: border-box">
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-bottom: 14px; border-bottom: 1px solid rgba(232,230,223,0.18)">
+<span>cluster-nano &middot; STM32 &middot; FreeRTOS</span>
+<span style="color: #6FDDA0"><span aria-hidden="true">&#9679;</span> online</span>
+</div>
+<div style="padding: 14px 0; border-bottom: 1px solid rgba(232,230,223,0.18)">
+<div style="color: #A9ADA5; margin-bottom: 6px">TASKS</div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span>kiosk_task</span><span style="color: #A9ADA5">Blocked &middot; awaiting visitor</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span>sensor_task</span><span style="color: #6FDDA0">Running &middot; sampling</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px"><span>uplink_task</span><span style="color: #A9ADA5">Ready &middot; queue draining</span></div>
+</div>
+<div style="padding: 14px 0 6px">
+<div style="color: #A9ADA5; margin-bottom: 6px">EVENTS &middot; 12 OCT</div>
+<div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap"><span>16:28 Courier &middot; Ana Ruiz &rarr; B12</span><span style="color: #6FDDA0">answered</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap"><span>16:10 Guest &middot; Marcus Webb &rarr; A04</span><span style="color: #6FDDA0">answered</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap"><span>15:32 Contractor &middot; Priya Nair &rarr; C21</span><span style="color: #F2A65A">no answer</span></div>
+</div>
+<div style="padding-top: 12px; color: #A9ADA5; font-size: 12px">Sample data for illustration</div>
+</div>
+</section>
+
+<section id="flow" style="background: #FBFAF6; border-top: 1px solid rgba(18,24,22,0.12); border-bottom: 1px solid rgba(18,24,22,0.12)">
+<div style="max-width: 1200px; margin: 0 auto; padding: 80px 32px; box-sizing: border-box">
+<h2 style="margin: 0 0 12px; font-size: clamp(30px, 3.6vw, 44px); letter-spacing: -0.03em; line-height: 1.1">From the doorway to the audit trail.</h2>
+<p style="margin: 0 0 40px; font-size: 18px; max-width: 640px; color: #2E3632">Four steps, no manual entry, and nothing lost when the network drops.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 20px">
+<div style="border: 1px solid rgba(18,24,22,0.2); border-radius: 12px; padding: 24px; background: #F3F1EB">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: {{accent}}; font-weight: 500">01 SENSE</div>
+<h3 style="margin: 10px 0 8px; font-size: 21px">The node listens</h3>
+<p style="margin: 0 0 14px; color: #2E3632">The kiosk, door contacts and sensors feed one STM32 board on site.</p>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A524E">GPIO &middot; I&sup2;C &middot; ADC</div>
+</div>
+<div style="border: 1px solid rgba(18,24,22,0.2); border-radius: 12px; padding: 24px; background: #F3F1EB">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: {{accent}}; font-weight: 500">02 QUEUE</div>
+<h3 style="margin: 10px 0 8px; font-size: 21px">Nothing blocks a visitor</h3>
+<p style="margin: 0 0 14px; color: #2E3632">FreeRTOS tasks keep the kiosk responsive while events wait safely in a queue.</p>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A524E">tasks &middot; queues &middot; store-and-forward</div>
+</div>
+<div style="border: 1px solid rgba(18,24,22,0.2); border-radius: 12px; padding: 24px; background: #F3F1EB">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: {{accent}}; font-weight: 500">03 UPLINK</div>
+<h3 style="margin: 10px 0 8px; font-size: 21px">Sent once, securely</h3>
+<p style="margin: 0 0 14px; color: #2E3632">Each event has a unique ID and a UTC timestamp, so a retry never creates a duplicate.</p>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A524E">device key &middot; HTTPS or MQTT</div>
+</div>
+<div style="border: 1px solid rgba(18,24,22,0.2); border-radius: 12px; padding: 24px; background: #F3F1EB">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: {{accent}}; font-weight: 500">04 RECORD</div>
+<h3 style="margin: 10px 0 8px; font-size: 21px">Filed where it belongs</h3>
+<p style="margin: 0 0 14px; color: #2E3632">Cluster matches it to the right organisation, property and unit, ready for the team.</p>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #4A524E">visits &middot; tasks &middot; inspections</div>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width: 1200px; margin: 0 auto; padding: 88px 32px; box-sizing: border-box">
+<h2 style="margin: 0 0 40px; font-size: clamp(30px, 3.6vw, 44px); letter-spacing: -0.03em; line-height: 1.1; max-width: 720px">The compliance tools you know, now fed by the building itself.</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 0 48px">
+<div style="padding: 24px 0; border-top: 1px solid #121816">
+<h3 style="margin: 0 0 6px; font-size: 22px">Multi-property management</h3>
+<p style="margin: 0; color: #2E3632">One view across every site, with each node tied to a property and unit.</p>
+</div>
+<div style="padding: 24px 0; border-top: 1px solid #121816">
+<h3 style="margin: 0 0 6px; font-size: 22px">Maintenance task tracking</h3>
+<p style="margin: 0; color: #2E3632">A contractor signs in at the kiosk and the visit attaches to the open job.</p>
+</div>
+<div style="padding: 24px 0; border-top: 1px solid #121816">
+<h3 style="margin: 0 0 6px; font-size: 22px">Scheduled inspections</h3>
+<p style="margin: 0; color: #2E3632">Visits and readings become evidence, so every inspection starts with the record already there.</p>
+</div>
+<div style="padding: 24px 0; border-top: 1px solid #121816">
+<h3 style="margin: 0 0 6px; font-size: 22px">Team collaboration</h3>
+<p style="margin: 0; color: #2E3632">Assign, comment and hand over, all against the same log.</p>
+</div>
+</div>
+</section>
+
+<section id="device" style="background: #FBFAF6; border-top: 1px solid rgba(18,24,22,0.12); border-bottom: 1px solid rgba(18,24,22,0.12)">
+<div style="max-width: 1200px; margin: 0 auto; padding: 80px 32px; box-sizing: border-box; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 48px">
+<div>
+<h2 style="margin: 0 0 12px; font-size: clamp(30px, 3.6vw, 44px); letter-spacing: -0.03em; line-height: 1.1">Small board. Careful engineering.</h2>
+<p style="margin: 0; font-size: 18px; color: #2E3632">Built on an STM32 microcontroller and FreeRTOS, so timing is predictable and the kiosk stays quick even when the connection is not.</p>
+</div>
+<dl style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 14px">
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid rgba(18,24,22,0.25)"><dt style="color: #4A524E">Microcontroller</dt><dd style="margin: 0; text-align: right">STM32 [exact part number]</dd></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid rgba(18,24,22,0.25)"><dt style="color: #4A524E">Operating system</dt><dd style="margin: 0; text-align: right">FreeRTOS</dd></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid rgba(18,24,22,0.25)"><dt style="color: #4A524E">Uplink</dt><dd style="margin: 0; text-align: right">[Ethernet / Wi-Fi / cellular]</dd></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid rgba(18,24,22,0.25)"><dt style="color: #4A524E">Offline behaviour</dt><dd style="margin: 0; text-align: right">Store and forward</dd></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid rgba(18,24,22,0.25); border-bottom: 1px solid rgba(18,24,22,0.25)"><dt style="color: #4A524E">Identity</dt><dd style="margin: 0; text-align: right">Per-device key</dd></div>
+</dl>
+</div>
+</section>
+
+<section id="start" style="background: #121816; color: #F3F1EB">
+<div style="max-width: 1200px; margin: 0 auto; padding: 88px 32px; box-sizing: border-box; text-align: center">
+<h2 style="margin: 0 0 16px; font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.03em; line-height: 1.08">Put a node on site.</h2>
+<p style="margin: 0 auto 32px; font-size: 18px; max-width: 520px; color: #C9CCC4">See your first visit land in Cluster within minutes of switching it on.</p>
+<div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 12px">
+<a href="#start" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; background: #F3F1EB; color: #121816; border-radius: 8px; font-weight: 600; text-decoration: none">Get started</a>
+<a id="signin" href="#signin" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border: 1px solid #F3F1EB; border-radius: 8px; font-weight: 600; text-decoration: none">Sign in</a>
+</div>
+</div>
+</section>
+
+<footer style="max-width: 1200px; margin: 0 auto; padding: 28px 32px; box-sizing: border-box; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 14px; color: #4A524E">
+<span>Secure multi-tenant platform for property management teams</span>
+<span>&copy; Cluster</span>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#E4572E"},"$preview":{"width":1440,"height":2600}}'>
+class Component extends DCLogic {
+renderVals() {
+return { accent: this.props.accent ?? '#E4572E' };
+}
+}
+</script>
+</body>
+</html>
