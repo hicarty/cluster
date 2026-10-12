@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cluster.View", "src\Cluster
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cluster.Identity", "src\Cluster.Identity\Cluster.Identity.csproj", "{254F49D5-BF23-46C0-8D37-159A8E65D718}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cluster.Domain", "src\Cluster.Domain\Cluster.Domain.csproj", "{AE1A6670-E483-4740-A0E9-2631D663AE43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +28,14 @@ Global
 		{254F49D5-BF23-46C0-8D37-159A8E65D718}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{254F49D5-BF23-46C0-8D37-159A8E65D718}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{254F49D5-BF23-46C0-8D37-159A8E65D718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE1A6670-E483-4740-A0E9-2631D663AE43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE1A6670-E483-4740-A0E9-2631D663AE43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE1A6670-E483-4740-A0E9-2631D663AE43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE1A6670-E483-4740-A0E9-2631D663AE43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8182A5DE-07FD-4562-81F4-094CE262CCBD} = {24E0BE18-FE73-4581-B2A2-85788F7BDEB1}
 		{254F49D5-BF23-46C0-8D37-159A8E65D718} = {24E0BE18-FE73-4581-B2A2-85788F7BDEB1}
+		{AE1A6670-E483-4740-A0E9-2631D663AE43} = {24E0BE18-FE73-4581-B2A2-85788F7BDEB1}
 	EndGlobalSection
 EndGlobal

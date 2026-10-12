@@ -1,0 +1,235 @@
+@page "/visits"
+@rendermode InteractiveServer
+
+<PageTitle>Visits</PageTitle>
+
+<div class="crm-grid">
+    <header class="crm-grid__header">
+        <div>
+            <h1>Visits</h1>
+            <p class="crm-grid__subtitle">Visitor log captured by the cluster-nano kiosk.</p>
+        </div>
+        <div class="crm-grid__stats">
+            <div class="crm-stat">
+                <span class="crm-stat__value">@visits.Length</span>
+                <span class="crm-stat__label">Total</span>
+            </div>
+            <div class="crm-stat">
+                <span class="crm-stat__value">@AnsweredCount</span>
+                <span class="crm-stat__label">Answered</span>
+            </div>
+            <div class="crm-stat">
+                <span class="crm-stat__value">@UniqueUnits</span>
+                <span class="crm-stat__label">Units</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="crm-toolbar">
+        <input class="crm-search"
+               type="search"
+               placeholder="Search visitor, unit, tenant or notes…"
+               @bind="search"
+               @bind:event="oninput" />
+        <span class="crm-toolbar__count">@FilteredVisits.Count() of @visits.Length</span>
+    </div>
+
+    <div class="crm-table-wrap">
+        <table class="crm-table">
+            <thead>
+                <tr>
+                    @foreach (var column in Columns)
+                    {
+                        <th class="@column.CssClass" @onclick="() => SortBy(column.Key)">
+                            <span class="crm-th">
+                                @column.Label
+                                @if (sortKey == column.Key)
+                                {
+                                    <span class="crm-sort" aria-label="@(sortAscending ? "ascending" : "descending")">
+                                        @(sortAscending ? "▲" : "▼")
+                                    </span>
+                                }
+                            </span>
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (FilteredVisits.Count() == 0)
+                {
+                    <tr>
+                        <td class="crm-empty" colspan="@Columns.Length">
+                            @(visits.Length == 0 ? "No visits recorded yet." : "No visits match your search.")
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var visit in SortedVisits)
+                    {
+                        <tr>
+                            <td>
+                                <div class="crm-person">
+                                    <span class="crm-avatar" aria-hidden="true">@Initials(visit.VisitorName)</span>
+                                    <span class="crm-person__name">@Display(visit.VisitorName)</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="crm-badge crm-badge--@TypeClass(visit.VisitorType)">@Display(visit.VisitorType)</span>
+                            </td>
+                            <td>@Display(visit.Unit)</td>
+                            <td><span class="crm-tenant">@Display(visit.TenantId)</span></td>
+                            <td>
+                                @if (visit.Answered)
+                                {
+                                    <span class="crm-badge crm-badge--answered">Answered</span>
+                                }
+                                else
+                                {
+                                    <span class="crm-badge crm-badge--missed">No answer</span>
+                                }
+                            </td>
+                            <td class="crm-notes" title="@visit.Notes">@Display(visit.Notes)</td>
+                            <td class="crm-when" title="@visit.ReceivedAt.ToString("u")">
+                                @visit.ReceivedAt.ToLocalTime().ToString("g")
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private Visit[] visits = [];
+    private string search = string.Empty;
+    private string sortKey = nameof(Visit.ReceivedAt);
+    private bool sortAscending = false;
+
+    private static readonly (string Key, string Label, string CssClass)[] Columns =
+    [
+        (nameof(Visit.VisitorName), "Visitor", ""),
+        (nameof(Visit.VisitorType), "Type", "crm-col--type"),
+        (nameof(Visit.Unit), "Unit", "crm-col--unit"),
+        (nameof(Visit.TenantId), "Tenant", "crm-col--tenant"),
+        (nameof(Visit.Answered), "Answered", "crm-col--answered"),
+        (nameof(Visit.Notes), "Notes", ""),
+        (nameof(Visit.ReceivedAt), "Received", "crm-col--when"),
+    ];
+
+    private int AnsweredCount => visits.Count(v => v.Answered);
+
+    private int UniqueUnits => visits
+        .Where(v => !string.IsNullOrWhiteSpace(v.Unit))
+        .Select(v => v.Unit)
+        .Distinct(StringComparer.OrdinalIgnoreCase)
+        .Count();
+
+    private IEnumerable<Visit> FilteredVisits
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return visits;
+            }
+
+            return visits.Where(v =>
+                Contains(v.VisitorName) ||
+                Contains(v.VisitorType) ||
+                Contains(v.Unit) ||
+                Contains(v.TenantId) ||
+                Contains(v.Notes));
+
+            bool Contains(string value)
+                => value.Contains(search.Trim(), StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    private IEnumerable<Visit> SortedVisits
+    {
+        get
+        {
+            Func<Visit, object> key = sortKey switch
+            {
+                nameof(Visit.VisitorName) => v => v.VisitorName,
+                nameof(Visit.VisitorType) => v => v.VisitorType,
+                nameof(Visit.Unit) => v => v.Unit,
+                nameof(Visit.TenantId) => v => v.TenantId,
+                nameof(Visit.Answered) => v => v.Answered,
+                nameof(Visit.Notes) => v => v.Notes,
+                _ => v => v.ReceivedAt,
+            };
+
+            var ordered = sortAscending
+                ? FilteredVisits.OrderBy(key)
+                : FilteredVisits.OrderByDescending(key);
+
+            return ordered.ThenByDescending(v => v.ReceivedAt);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        visits = await LoadVisitsAsync();
+    }
+
+    // TODO: replace with the Cluster.Data-backed source once it exists.
+    private Task<Visit[]> LoadVisitsAsync()
+    {
+        var now = DateTimeOffset.UtcNow;
+
+        Visit[] sample =
+        [
+            new() { VisitorName = "Ana Ruiz", VisitorType = "courier", Unit = "B12", TenantId = "T-99", Answered = true, Notes = "Left at door", ReceivedAt = now.AddMinutes(-4) },
+            new() { VisitorName = "Marcus Webb", VisitorType = "guest", Unit = "A04", TenantId = "T-12", Answered = true, Notes = "Here for the 3pm viewing", ReceivedAt = now.AddMinutes(-22) },
+            new() { VisitorName = "Priya Nair", VisitorType = "contractor", Unit = "C21", TenantId = "T-45", Answered = false, Notes = "HVAC service call", ReceivedAt = now.AddHours(-1) },
+            new() { VisitorName = "Tom Okafor", VisitorType = "delivery", Unit = "B12", TenantId = "T-99", Answered = false, Notes = "", ReceivedAt = now.AddHours(-2) },
+            new() { VisitorName = "Sofia Almeida", VisitorType = "guest", Unit = "D08", TenantId = "T-77", Answered = true, Notes = "Parcel pickup", ReceivedAt = now.AddHours(-3) },
+            new() { VisitorName = "Liam Byrne", VisitorType = "unknown", Unit = "A04", TenantId = "T-12", Answered = true, Notes = "Waited in lobby", ReceivedAt = now.AddDays(-1) },
+        ];
+
+        return Task.FromResult(sample);
+    }
+
+    private void SortBy(string key)
+    {
+        if (sortKey == key)
+        {
+            sortAscending = !sortAscending;
+            return;
+        }
+
+        sortKey = key;
+        sortAscending = true;
+    }
+
+    private static string Display(string value)
+        => string.IsNullOrWhiteSpace(value) ? "—" : value;
+
+    private static string Initials(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return "?";
+        }
+
+        var parts = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return parts.Length switch
+        {
+            0 => "?",
+            1 => parts[0][..1].ToUpperInvariant(),
+            _ => $"{parts[0][0]}{parts[^1][0]}".ToUpperInvariant(),
+        };
+    }
+
+    private static string TypeClass(string type) => type.Trim().ToLowerInvariant() switch
+    {
+        "guest" => "guest",
+        "courier" => "courier",
+        "delivery" => "delivery",
+        "contractor" => "contractor",
+        _ => "unknown",
+    };
+}

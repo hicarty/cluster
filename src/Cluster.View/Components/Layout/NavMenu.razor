@@ -25,29 +25,11 @@
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
             </NavLink>
         </div>
-    </nav>
-</div>
 
-<div class="nav-scrollable">
-    <nav class="flex-column">
         <div class="nav-item px-3">
-            @* Sign-in and sign-out live in Cluster.Identity; this app only renders links to them. *@
-            <AuthorizeView>
-                <Authorized>
-                    <a class="nav-link" href="@IdentityUrl("/identity/logged-out")">Account</a>
-                </Authorized>
-                <NotAuthorized>
-                    <a class="nav-link" href="@IdentityUrl("/identity/login")">Log in</a>
-                </NotAuthorized>
-            </AuthorizeView>
+            <NavLink class="nav-link" href="visits">
+                <span class="bi bi-folder-symlink-fill-nav-menu" aria-hidden="true"></span> Visits
+            </NavLink>
         </div>
     </nav>
 </div>
-
-@code {
-    [Inject]
-    private IOptions<IdentityClientOptions> IdentityClient { get; set; } = default!;
-
-    private string IdentityUrl(string path)
-        => $"{IdentityClient.Value.BaseUrl.TrimEnd('/')}{path}?returnUrl={Uri.EscapeDataString(IdentityClient.Value.ViewBaseUrl.TrimEnd('/') + "/")}";
-}

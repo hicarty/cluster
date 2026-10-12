@@ -7,6 +7,15 @@
 
     <main>
         <div class="top-row px-4">
+            @* Sign-in and sign-out live in Cluster.Identity; this app only renders links to them. *@
+            <AuthorizeView>
+                <Authorized>
+                    <a href="@IdentityUrl("/identity/logged-out")">Account</a>
+                </Authorized>
+                <NotAuthorized>
+                    <a href="@IdentityUrl("/identity/login")">Log in</a>
+                </NotAuthorized>
+            </AuthorizeView>
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div>
 
@@ -21,3 +30,11 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code {
+    [Inject]
+    private IOptions<IdentityClientOptions> IdentityClient { get; set; } = default!;
+
+    private string IdentityUrl(string path)
+        => $"{IdentityClient.Value.BaseUrl.TrimEnd('/')}{path}?returnUrl={Uri.EscapeDataString(IdentityClient.Value.ViewBaseUrl.TrimEnd('/') + "/")}";
+}

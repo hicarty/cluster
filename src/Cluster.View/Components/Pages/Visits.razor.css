@@ -1,0 +1,244 @@
+.crm-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.crm-grid__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.crm-grid__header h1 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.crm-grid__subtitle {
+    margin: 0.25rem 0 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.crm-grid__stats {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.crm-stat {
+    min-width: 5rem;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.6rem;
+    background: #f9fafb;
+    text-align: center;
+}
+
+.crm-stat__value {
+    display: block;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.1;
+}
+
+.crm-stat__label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6b7280;
+}
+
+.crm-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.crm-search {
+    flex: 1;
+    max-width: 26rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.crm-search:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 1px;
+    border-color: #2563eb;
+}
+
+.crm-toolbar__count {
+    font-size: 0.82rem;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+.crm-table-wrap {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: #fff;
+}
+
+.crm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.crm-table thead th {
+    position: sticky;
+    top: 0;
+    background: #f3f4f6;
+    text-align: left;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #4b5563;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.crm-table thead th:hover {
+    color: #111827;
+    background: #e9ecf1;
+}
+
+.crm-th {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.crm-sort {
+    font-size: 0.6rem;
+    color: #2563eb;
+}
+
+.crm-table tbody td {
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid #f1f3f5;
+    vertical-align: middle;
+}
+
+.crm-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.crm-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.crm-col--type,
+.crm-col--unit,
+.crm-col--tenant,
+.crm-col--answered,
+.crm-col--when {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.crm-person {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.crm-person__name {
+    font-weight: 600;
+    color: #111827;
+}
+
+.crm-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: #e0e7ff;
+    color: #3730a3;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.crm-tenant {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8rem;
+    color: #374151;
+}
+
+.crm-notes {
+    max-width: 20rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #4b5563;
+}
+
+.crm-when {
+    color: #6b7280;
+}
+
+.crm-empty {
+    padding: 2.5rem 1rem;
+    text-align: center;
+    color: #9ca3af;
+}
+
+.crm-badge {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    line-height: 1.4;
+}
+
+.crm-badge--guest {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.crm-badge--courier {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.crm-badge--delivery {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+.crm-badge--contractor {
+    background: #ede9fe;
+    color: #5b21b6;
+}
+
+.crm-badge--unknown {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.crm-badge--answered {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.crm-badge--missed {
+    background: #fee2e2;
+    color: #991b1b;
+}
